@@ -7,6 +7,12 @@ import { AppComponent } from './app.component';
 import { PhotosComponent } from './components/photos/photos.component';
 import { LoadComponent } from './components/load/load.component';
 
+/* Firebase */
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from './../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +22,10 @@ import { LoadComponent } from './components/load/load.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    APP_ROUTES
+    APP_ROUTES,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

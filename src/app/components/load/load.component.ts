@@ -1,3 +1,5 @@
+import { LoadPicturesService } from './../../services/load-pictures.service';
+import { FileItem } from './../../models/file-item';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadComponent implements OnInit {
 
-  constructor() { }
+  files: FileItem [] = [];
+
+  constructor(public loadPictureservice: LoadPicturesService) { }
 
   ngOnInit(): void {
+  }
+
+
+  loadPicture () {
+    this.loadPictureservice.loadImagesFireBase(this.files);
   }
 
 }

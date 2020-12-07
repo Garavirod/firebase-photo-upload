@@ -1,1 +1,38 @@
-<p>load works!</p>
+<div class="row">
+    <div class="col-md-4">
+        <h3>Choose a file</h3>
+        <div class="well drop-zone file-over">
+            <h4>Drop you files here</h4>
+            <img src="assets/drop-images.png" alt="">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h4>Load files</h4>
+        <button 
+            [disabled]="files.length===0"
+            class="btn btn-success mr-2"
+            (click)="loadPicture()"
+        >Load to firebase</button>
+        <button class="btn btn-danger">Clean</button>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>File name</th>
+                    <th>Size</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>XSZ</td>
+                    <td>23.2 MB</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
