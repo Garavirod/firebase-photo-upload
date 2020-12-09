@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadComponent implements OnInit {
 
+  isOnDropSection: boolean = false;
   files: FileItem [] = [];
 
   constructor(public loadPictureservice: LoadPicturesService) { }
@@ -19,6 +20,11 @@ export class LoadComponent implements OnInit {
 
   loadPicture () {
     this.loadPictureservice.loadImagesFireBase(this.files);
+  }
+
+  testOnElement( event ){
+    console.log( event );
+    
   }
 
 }
