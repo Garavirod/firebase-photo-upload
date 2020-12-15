@@ -22,6 +22,7 @@ export class NgDropFilesDirective {
   @HostListener('dragover',['$event'])
   public onDragEnter(event: any){
     this.mouseOn.emit(true);
+    this.avoidOpenFile( event );
   }
 
   /* When mouse Leaves the zone */
@@ -29,6 +30,39 @@ export class NgDropFilesDirective {
   public onDragLeave(event: any){
     this.mouseOn.emit(false);
   }
+
+
+  /* When mouse doped the zone */
+  @HostListener('drop',['$event'])
+  public onDrop(event: any){
+    const transfer = this.getTransfer( event );
+    if(transfer){
+      this.extractFiles( transfer.files );
+      this.avoidOpenFile( event );
+      this.mouseOn.emit(false);
+    }
+  }
+
+
+  // Functions
+
+  private getTransfer( event: any){
+    return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer;
+  }
+
+  private extractFiles( fileList: FileList ){
+    for(const prop in Object.getOwnPropertyNames( fileList ) ){
+      const tempFile = fileList[prop];
+      if(this.canBeLoad(tempFile)){
+        const newFile = new FileItem( tempFile );
+        this.files.push( newFile );
+      }
+    }
+    console.log(this.files);
+    
+
+  }
+
 
   /* ----------Validators------------*/
 

@@ -27,4 +27,8 @@ export class LoadComponent implements OnInit {
     
   }
 
+  cleanListFiles(){
+    this.files = [];
+  }
+
 }
