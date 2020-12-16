@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
+import { AngularFirestore } from "angularfire2/firestore";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [
+    AngularFirestore
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

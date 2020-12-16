@@ -13,7 +13,33 @@ export class LoadPicturesService {
   /*  */
 
   loadImagesFireBase( images: FileItem[] ) {
-    console.log(images);    
+    
+    // Reference to firebase storage
+    const storageRef = firebase.storage().ref();
+    for(const it of images){
+      it.isUploading = true;
+      if(it.progress >= 100){
+        continue;
+      }
+
+      const uploadtask: firebase.storage.UploadTask = storageRef.child(`${this.DIR_IMAGES}/${it.nameFile}`).put(it.file);
+      uploadtask.on( firebase.storage.TaskEvent.STATE_CHANGED,
+        // progres item
+        (snapshot: firebase.storage.UploadTaskSnapshot) => 
+        it.progress = (snapshot.bytesTransferred /snapshot.totalBytes) * 100,
+        // Manage error
+        (err) => console.error('Error on upload images ',err),
+        // All went well
+        () => {
+         console.log('Image uploaded successfuly!');
+         it.url = uploadtask.snapshot.downloadURL;
+         it.isUploading = false;
+         this.saveImage({name: it.nameFile, url: it.url});
+          
+        }  
+      )
+    }
+
   }
 
   private saveImage (image: { name:string, url:string} ) {
